@@ -21,7 +21,7 @@ module.exports = app => {
 
   //获取全部分类
   router.get('/categories', async (req, res) => {
-    const categories = await Category.find()
+    const categories = await Category.find().populate('parent')  //populate('parent')表示关联取出parent，前端会得到一个parent对象
     res.send(categories)
   })
 
