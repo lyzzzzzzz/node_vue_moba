@@ -1,12 +1,15 @@
 module.exports = app => {
   const express = require('express')
   const router = express.Router()  //express子路由
-  const Category = require('../../models/Category')  //Category表
-  app.use('/admin/api', router)
+  app.use('/admin/api/rest/:resource', async (req, res, next) => {
+    let modelName = require('inflection').classify(req.params.resource)  //将小写‘categories’转成标准的类名‘Category’
+    req.Model = require(`../../models/${modelName}`)
+    next()
+  }, router)
 
   //新增分类
-  router.post('/categories', async (req, res) => {
-    const category = await Category.create(req.body)
+  router.post('/', async (req, res) => {
+    const category = await req.Model.create(req.body)
     if (category) {
       res.send({
         msg: "新建成功",
@@ -20,15 +23,20 @@ module.exports = app => {
   })
 
   //获取全部分类
-  router.get('/categories', async (req, res) => {
-    const categories = await Category.find().populate('parent')  //populate('parent')表示关联取出parent，前端会得到一个parent对象
+  router.get('/', async (req, res) => {
+    let queryOptions={}
+    if(req.Model.modelName==='Category'){
+      queryOptions.populate='parent'
+    }
+    const categories = await req.Model.find().setOptions(queryOptions)
+    // const categories = await req.Model.find().populate('parent')  //populate('parent')表示关联取出parent，前端会得到一个parent对象
     res.send(categories)
   })
 
 
   //根据id获取分类
-  router.get('/categories/:id', async (req, res) => {
-    const category = await Category.findById(req.params.id)
+  router.get('/:id', async (req, res) => {
+    const category = await req.Model.findById(req.params.id)
     if (category) {
       res.send(category)
     } else {
@@ -37,11 +45,11 @@ module.exports = app => {
       })
     }
   })
- 
+
 
   //修改分类
-  router.put('/categories/:id', async (req, res) => {
-    const category = await Category.findByIdAndUpdate(req.params.id,req.body)
+  router.put('/:id', async (req, res) => {
+    const category = await req.Model.findByIdAndUpdate(req.params.id, req.body)
     if (category) {
       res.send({
         msg: "修改成功",
@@ -56,8 +64,8 @@ module.exports = app => {
 
 
   //删除分类
-  router.delete('/categories/:id', async (req, res) =>{
-    const category = await Category.findById(req.params.id)
+  router.delete('/:id', async (req, res) => {
+    const category = await req.Model.findById(req.params.id)
     await category.remove()
     res.send({
       msg: "删除成功"
