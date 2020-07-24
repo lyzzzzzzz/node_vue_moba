@@ -41,10 +41,8 @@ module.exports = app => {
 
   //修改分类
   router.put('/categories/:id', async (req, res) => {
-    const category = await Category.findById(req.params.id)
+    const category = await Category.findByIdAndUpdate(req.params.id,req.body)
     if (category) {
-      category.name = req.body.name
-      await category.save()
       res.send({
         msg: "修改成功",
         data: category

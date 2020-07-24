@@ -66,6 +66,7 @@ export default {
       }
       let { msg, data } = res.data;
       if (data) {
+        console.log("data",data);
         this.$message({
           message: msg,
           type: "success",
