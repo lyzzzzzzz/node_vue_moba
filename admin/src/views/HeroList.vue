@@ -1,14 +1,19 @@
 <template>
   <div>
     <el-table :data="itemList">
-      <el-table-column prop="_id" label="ID" width="300"></el-table-column>
-      <el-table-column prop="name" label="英雄名称" width="500"></el-table-column>
-      <el-table-column  label="圖標" >
-          <template slot-scope="scope">
-        <img :src="scope.row.icon" style="height:40px;width:40px" />
-      </template>
+      <!-- <el-table-column prop="_id" label="ID" width="300"></el-table-column> -->
+      <el-table-column prop="name" label="英雄名称" width="200"></el-table-column>
+      <el-table-column label="圖標">
+        <template slot-scope="scope">
+          <img :src="scope.row.avatar" style="height:40px;width:40px" />
+        </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column prop="title" label="称号" width="300"></el-table-column>
+      <el-table-column prop="scores.difficult" label="难度" width="200"></el-table-column>
+      <el-table-column prop="scores.skills" label="技能" width="200"></el-table-column>
+      <el-table-column prop="scores.attack" label="攻击" width="200"></el-table-column>
+      <el-table-column prop="scores.survive" label="生存" width="200"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toEdit(scope.row._id)">编辑</el-button>
           <el-button type="text" size="small" @click="deleteCate(scope.row)">删除</el-button>
@@ -35,7 +40,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(async () => {
-        const res = await this.$http.delete("/rest/items/" + row._id);
+        const res = await this.$http.delete("/rest/heros/" + row._id);
         this.$message({
           type: "success",
           message: res.data.msg,
@@ -44,10 +49,10 @@ export default {
       });
     },
     toEdit(id) {
-      this.$router.push("/items/edit/" + id);
+      this.$router.push("/heroes/edit/" + id);
     },
     async getCategortList() {
-      const res = await this.$http.get("/rest/items");
+      const res = await this.$http.get("/rest/heros");
       if (res.data) {
         this.itemList = res.data.reverse();
       }
