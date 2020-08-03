@@ -1,11 +1,22 @@
 module.exports = app => {
   const express = require('express')
   const router = express.Router()  //express子路由
+
+
   app.use('/admin/api/rest/:resource', async (req, res, next) => {
     let modelName = require('inflection').classify(req.params.resource)  //将小写‘categories’转成标准的类名‘Category’
     req.Model = require(`../../models/${modelName}`)
     next()
   }, router)
+
+
+  const multer=require('multer')  //處理圖片
+  const upload=multer({dest:__dirname+'/../../uploads'})//上傳到uploads文件夾
+  app.post('/admin/api/upload' ,upload.single('file'), (req, res) =>{  //'file'前端傳過來數據的字段名
+      let file=req.file
+      file.url=`http://localhost:3000/uploads/${file.filename}`
+      res.send(file)
+  })
 
   //新增分类
   router.post('/', async (req, res) => {

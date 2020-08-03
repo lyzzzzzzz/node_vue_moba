@@ -38,13 +38,13 @@ export default {
   },
   methods: {
     async getParents() {
-      const res = await this.$http.get("/categories");
+      const res = await this.$http.get("/rest/categories");
       if (res.data) {
         this.parents = res.data;
       }
     },
     async getCategory() {
-      const res = await this.$http.get("/categories/" + this.id);
+      const res = await this.$http.get("/rest/categories/" + this.id);
       if (res.data) {
         this.model = res.data;
       }
@@ -60,9 +60,9 @@ export default {
       }
       let res;
       if (this.id) {
-        res = await this.$http.put("/categories/" + this.id, this.model); //修改操作
+        res = await this.$http.put("/rest/categories/" + this.id, this.model); //修改操作
       } else {
-        res = await this.$http.post("/categories", this.model); //新增操作
+        res = await this.$http.post("/rest/categories", this.model); //新增操作
       }
       let { msg, data } = res.data;
       if (data) {

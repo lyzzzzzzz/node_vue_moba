@@ -31,7 +31,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(async () => {
-        const res = await this.$http.delete("/categories/" + row._id);
+        const res = await this.$http.delete("/rest/categories/" + row._id);
         this.$message({
           type: "success",
           message: res.data.msg,
@@ -43,7 +43,7 @@ export default {
       this.$router.push("/categories/edit/" + id);
     },
     async getCategortList() {
-      const res = await this.$http.get("/categories");
+      const res = await this.$http.get("/rest/categories");
       if (res.data) {
         this.categortList = res.data.reverse();
       }
