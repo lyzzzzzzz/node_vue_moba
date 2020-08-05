@@ -2,7 +2,7 @@
   <div>
     <el-table :data="articleList">
       <el-table-column prop="_id" label="ID" width="300"></el-table-column>
-      <el-table-column label="上级分类" width="300">
+      <el-table-column label="所属分类" width="300">
         <template slot-scope="scope">
           <span v-for="(item,index) in scope.row.categories" :key="index">
             {{item.name}}

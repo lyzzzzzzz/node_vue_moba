@@ -20,6 +20,9 @@
       <el-form-item label="标题">
         <el-input v-model="model.title"></el-input>
       </el-form-item>
+      <el-form-item label="内容">
+        <vue-editor v-model="model.content" useCustomImageHandler @image-added="handleImageAdded"></vue-editor>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
         <el-button type="primary" @click="cancel">取消</el-button>
@@ -29,7 +32,11 @@
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
 export default {
+  components: {
+    VueEditor,
+  },
   props: ["id"],
   data() {
     return {
@@ -45,6 +52,14 @@ export default {
     this.id && this.getArticle();
   },
   methods: {
+    //自定义富文本上传图片方式，，图片默认为base64，使得体积非常大，，改为后台图片地址
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      let formData = new FormData();
+      formData.append("file", file); //"file"后台接受的是file字段
+      const res = await this.$http.post("/upload", formData);
+      Editor.insertEmbed(cursorLocation, "image", res.data.url);
+      resetUploader();
+    },
     async getCategories() {
       const res = await this.$http.get("/rest/categories");
       if (res.data) {
