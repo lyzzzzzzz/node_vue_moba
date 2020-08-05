@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>广告位列表</h1>
     <el-table :data="articleList">
       <el-table-column prop="_id" label="ID" width="300"></el-table-column>
       <!-- <el-table-column label="所属分类" width="300">

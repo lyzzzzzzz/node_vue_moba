@@ -1,12 +1,13 @@
 <template>
   <div>
+    <h1>装备列表</h1>
     <el-table :data="itemList">
       <el-table-column prop="_id" label="ID" width="300"></el-table-column>
       <el-table-column prop="name" label="英雄名称" width="500"></el-table-column>
-      <el-table-column  label="圖標" >
-          <template slot-scope="scope">
-        <img :src="scope.row.icon" style="height:40px;width:40px" />
-      </template>
+      <el-table-column label="圖標">
+        <template slot-scope="scope">
+          <img :src="scope.row.icon" style="height:40px;width:40px" />
+        </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
