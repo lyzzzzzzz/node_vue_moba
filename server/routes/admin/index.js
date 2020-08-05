@@ -10,12 +10,12 @@ module.exports = app => {
   }, router)
 
 
-  const multer=require('multer')  //處理圖片
-  const upload=multer({dest:__dirname+'/../../uploads'})//上傳到uploads文件夾
-  app.post('/admin/api/upload' ,upload.single('file'), (req, res) =>{  //'file'前端傳過來數據的字段名
-      let file=req.file
-      file.url=`http://localhost:3000/uploads/${file.filename}`
-      res.send(file)
+  const multer = require('multer')  //處理圖片
+  const upload = multer({ dest: __dirname + '/../../uploads' })//上傳到uploads文件夾
+  app.post('/admin/api/upload', upload.single('file'), (req, res) => {  //'file'前端傳過來數據的字段名
+    let file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
   })
 
   //新增分类
@@ -35,9 +35,13 @@ module.exports = app => {
 
   //获取全部分类
   router.get('/', async (req, res) => {
-    let queryOptions={}
-    if(req.Model.modelName==='Category'){
-      queryOptions.populate='parent'
+    let queryOptions = {}
+    if (req.Model.modelName === 'Category') {
+      queryOptions.populate = 'parent'
+    }
+    if (req.Model.modelName === 'Article') {
+      const articleTable = require('../../models/Category');
+      queryOptions.populate = { path: 'categories', select: { name: 1 }, model: articleTable }//把分类信息带出来
     }
     const categories = await req.Model.find().setOptions(queryOptions)
     // const categories = await req.Model.find().populate('parent')  //populate('parent')表示关联取出parent，前端会得到一个parent对象
