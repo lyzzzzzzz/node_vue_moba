@@ -25,12 +25,31 @@
 export default {
   data() {
     return {
-      model: {},
+      model: {
+        username:'',
+        password:''
+      },
     };
   },
   methods: {
-    login(){
-      console.log(this.model);
+  async  login(){
+    const {username,password}=this.model
+    if(!username){
+    return  this.$message("请填写用户名")
+    }
+      if(!password){
+    return  this.$message("请填写密码")
+    }
+    const res=await this.$http.post('/login',this.model)
+    console.log(res.data.token);
+    if(res.data){
+      localStorage.setItem('token',res.data.token)
+    }
+     this.$router.push('/')
+     this.$message({
+       message:'登录成功',
+       type:'success'
+     })
     }
   }
 };

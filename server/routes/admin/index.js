@@ -1,22 +1,18 @@
 module.exports = app => {
+  const assert = require('http-assert')
   const express = require('express')
   const router = express.Router()  //express子路由
+  const AdminUser = require('../../models/AdminUser')
+  const jwt = require('jsonwebtoken')
+
+  //校验中间件
+  const authMiddleware = require('../../middleware/auth')
+  //资源中间件
+  const resourceMiddleware = require('../../middleware/resoruce')
 
 
-  app.use('/admin/api/rest/:resource', async (req, res, next) => {
-    let modelName = require('inflection').classify(req.params.resource)  //将小写‘categories’转成标准的类名‘Category’
-    req.Model = require(`../../models/${modelName}`)
-    next()
-  }, router)
+  app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
 
-
-  const multer = require('multer')  //處理圖片
-  const upload = multer({ dest: __dirname + '/../../uploads' })//上傳到uploads文件夾
-  app.post('/admin/api/upload', upload.single('file'), (req, res) => {  //'file'前端傳過來數據的字段名
-    let file = req.file
-    file.url = `http://localhost:3000/uploads/${file.filename}`
-    res.send(file)
-  })
 
   //新增分类
   router.post('/', async (req, res) => {
@@ -86,4 +82,36 @@ module.exports = app => {
       msg: "删除成功"
     })
   })
+
+  const multer = require('multer')  //處理圖片
+  const upload = multer({ dest: __dirname + '/../../uploads' })//上傳到uploads文件夾
+  app.post('/admin/api/upload', authMiddleware(), upload.single('file'), (req, res) => {  //'file'前端傳過來數據的字段名
+    let file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
+  })
+
+
+  app.post('/admin/api/login', async (req, res) => {
+    const { username, password } = req.body
+    //1、根据用户名找用户
+    const user = await AdminUser.findOne({ username }).select('+password') //'+password'强制带出密码，因为AdminUser表里设置了password不可查
+    assert(user, 422, '用户不存在')
+    // 2、校验密码
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    assert(isValid, 422, '密码错误')
+    // 3、返回token
+    const token = jwt.sign({ id: user._id }, app.get('secret'))
+    res.send({ token })
+  })
+
+
+
+  //错误处理函数
+  app.use(async (err, req, res, next) => {
+    res.status(err.statusCode || 500).send({
+      message: err.message
+    })
+  })
 }
+
