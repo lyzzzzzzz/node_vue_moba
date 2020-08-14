@@ -5,9 +5,14 @@ $colors:("primary":#db9e3f,
   "dark":#222,
   "grey":#999,
   "ligit":#f9f9f9,
+  "ligit-1":#d4d9de,
   "dark-1":#343440,
   "blue":#4b67af
   );
+
+
+$border-color:map-get($colors,'ligit-1');
+
 
   //font size
 $base-font-sizes:1rem;
@@ -18,6 +23,8 @@ $font-sizes :(
   lg:1.076, //14px
   xl:1.230 //16px
 );
+
+
 
 
 $flex-jc:(

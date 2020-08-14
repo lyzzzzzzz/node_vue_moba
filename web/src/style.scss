@@ -46,6 +46,8 @@ a {
   }
 }
 
+
+
 //button
 .btn{
   border: none;
@@ -59,10 +61,14 @@ a {
   display: flex;
 }
 
+
+
 .flex-column{
   flex-direction: column;
 }
-
+.flex-warp{
+  flex-wrap: wrap;
+}
 
 @each $key,$val in $flex-jc {
   .jc-#{$key}{
@@ -131,4 +137,56 @@ a {
  }
  .h-100{
    height: 100%;
+ }
+
+ //sprite
+ .sprite{
+   background: url(./assets/sprite/index.png) no-repeat 0 0;
+   background-size:28.846rem 35rem;
+   display: inline-block;
+   &.sprite-news{
+    width: 1.769rem;
+    height: 1.538rem;
+    background-position: 63.546% 15.517%;
+   }
+   &.sprite-story{
+    width: 1.769rem;
+    height: 1.538rem;
+    background-position: 90.483% 15.614%;
+   }
+   &.sprite-shopping{
+    width: 1.461rem;
+    height: 1.692rem;
+    background-position: 36.746% 0.924%;
+   }
+   &.sprite-experience-clothing{
+    width: 1.538rem;
+    height: 1.538rem;
+    background-position:10.408% 15.517%;
+   }
+   &.sprite-new-people{
+    width: 1.538rem;
+    height: 1.615rem;
+    background-position: 89.733% 1.266%;
+   }
+   &.sprite-inherit{
+    width: 1.846rem;
+    height: 1.538rem;
+    background-position:  36.467% 15.287%;
+   }
+   &.sprite-camp{
+  	width: 24px;
+	  height: 24px;
+    background-position: 63.3% 0.927%;
+   }
+   &.sprite-official-account{
+    width: 1.846rem;
+    height: 1.538rem;
+    background-position:0 96.207%;
+   }
+   &.sprite-pack-up{
+    width: 0.769rem;
+    height: 0.769rem;
+    background-position:38.577% 52.076%;
+   }
  }
