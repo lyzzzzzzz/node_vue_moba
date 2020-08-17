@@ -12,7 +12,7 @@
         >
           <span class="text-block">{{info.categoryName}}</span>
           <span class="flex-1 px-2">{{info.title}}</span>
-          <span>{{info.date}}</span>
+          <span>{{info.createdAt}}</span>
         </div>
       </template>
     </list-card>
@@ -31,41 +31,17 @@ export default {
   },
   data() {
     return {
-      newCategories: [
-        {
-          name: "新闻",
-          list: new Array(5).fill({}).map(() => ({
-            categoryName: "新闻",
-            title: "游戏家中国行·王者零距离”活动重启说明",
-            date: "08/14",
-          })),
-        },
-        {
-          name: "公告",
-          list: new Array(5).fill({}).map(() => ({
-            categoryName: "公告",
-            title: "游戏家中国行·王者零距离”活动重启说明",
-            date: "08/14",
-          })),
-        },
-        {
-          name: "活动",
-          list: new Array(5).fill({}).map(() => ({
-            categoryName: "活动",
-            title: "游戏家中国行·王者零距离”活动重启说明",
-            date: "08/14",
-          })),
-        },
-        {
-          name: "赛事",
-          list: new Array(5).fill({}).map(() => ({
-            categoryName: "赛事",
-            title: "游戏家中国行·王者零距离”活动重启说明",
-            date: "08/14",
-          })),
-        },
-      ],
+      newCategories: [],
     };
+  },
+  created() {
+    this.getNewCategories();
+  },
+  methods: {
+    async getNewCategories() {
+      const res = await this.$http("/news/list");
+      this.newCategories = res.data;
+    },
   },
 };
 </script>

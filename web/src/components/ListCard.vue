@@ -6,10 +6,10 @@
         :class="{active:active===index}"
         v-for="(category,index) in categories"
         :key="index"
-        @click="()=>active=index"
+        @click="$refs.list.$swiper.slideTo(index)"
       >{{category.name}}</div>
     </div>
-    <swiper>
+    <swiper ref="list" @slide-change="()=>active=$refs.list.$swiper.realIndex">
       <swiper-slide v-for="(category,index) in categories" :key="index">
         <slot name="item" :category="category"></slot>
       </swiper-slide>
@@ -32,6 +32,11 @@ export default {
     return {
       active: 0,
     };
+  },
+  methods: {
+    slideChange() {
+      console.log(this.$refs.list.$swiper.realIndex);
+    },
   },
 };
 </script>
