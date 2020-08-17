@@ -2,41 +2,70 @@
   <div class="home">
     <home-swiper></home-swiper>
     <home-icons></home-icons>
-    <my-card icon="cc-menu-circle" title="新闻资讯">
-      <div class="fs-md nav jc-between nav-border-top py-3">
-        <div class="nav-item active">热门</div>
-        <div class="nav-item">新闻</div>
-        <div class="nav-item">公告</div>
-        <div class="nav-item">活动</div>
-        <div class="nav-item">赛事</div>
-      </div>
-      <swiper>
-        <swiper-slide v-for="n in 5" :key="n">
-          <div class="py-2 fs-sm d-flex jc-between ai-center" v-for="m in 5" :key="m">
-            <span class="text-block">公告</span>
-            <span class="flex-1 px-2">“游戏家中国行·王者零距离”活动重启说明</span>
-            <span>08/14</span>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </my-card>
 
-    <my-card icon="cc-menu-circle" title="英雄列表"></my-card>
+    <list-card icon="cc-menu-circle" title="新闻资讯" :categories="newCategories">
+      <template #item="{category}">
+        <div
+          class="py-2 fs-sm d-flex jc-between ai-center"
+          v-for="(info,m) in category.list"
+          :key="m"
+        >
+          <span class="text-block">{{info.categoryName}}</span>
+          <span class="flex-1 px-2">{{info.title}}</span>
+          <span>{{info.date}}</span>
+        </div>
+      </template>
+    </list-card>
   </div>
 </template>
 
 <script>
 import HomeIcons from "../components/HomeIcons";
 import HomeSwiper from "../components/HomeSwiper";
-import MyCard from "../components/MyCard";
+import ListCard from "../components/ListCard";
 export default {
   components: {
     HomeIcons,
     HomeSwiper,
-    MyCard,
+    ListCard,
   },
   data() {
-    return {};
+    return {
+      newCategories: [
+        {
+          name: "新闻",
+          list: new Array(5).fill({}).map(() => ({
+            categoryName: "新闻",
+            title: "游戏家中国行·王者零距离”活动重启说明",
+            date: "08/14",
+          })),
+        },
+        {
+          name: "公告",
+          list: new Array(5).fill({}).map(() => ({
+            categoryName: "公告",
+            title: "游戏家中国行·王者零距离”活动重启说明",
+            date: "08/14",
+          })),
+        },
+        {
+          name: "活动",
+          list: new Array(5).fill({}).map(() => ({
+            categoryName: "活动",
+            title: "游戏家中国行·王者零距离”活动重启说明",
+            date: "08/14",
+          })),
+        },
+        {
+          name: "赛事",
+          list: new Array(5).fill({}).map(() => ({
+            categoryName: "赛事",
+            title: "游戏家中国行·王者零距离”活动重启说明",
+            date: "08/14",
+          })),
+        },
+      ],
+    };
   },
 };
 </script>
