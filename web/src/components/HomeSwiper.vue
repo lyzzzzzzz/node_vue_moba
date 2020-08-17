@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container w-100">
     <swiper ref="mySwiper" :options="swiperOptions">
       <swiper-slide>
         <img src="../assets/swiper/1.jpeg" class="w-100" />

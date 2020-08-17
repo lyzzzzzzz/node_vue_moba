@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center fs-sm text-dark">
-    <div class="nav-icons d-flex flex-warp bg-white mt-3 pt-3">
+  <div class="text-center fs-sm text-dark nav-icons mt-3">
+    <div class="d-flex flex-warp bg-white pt-3">
       <div class="icon-item mb-3">
         <i class="sprite sprite-news"></i>
         <div class="pt-2 text-grey">爆料站</div>
@@ -62,5 +62,10 @@
 export default {};
 </script>
 
-<style>
+<style lang="scss">
+@import "../_variable.scss";
+.nav-icons {
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
 </style>
