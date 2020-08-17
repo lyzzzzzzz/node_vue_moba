@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center fs-sm text-dark nav-icons mt-3">
+  <div class="text-center fs-sm text-dark nav-icons mt-3 w-100">
     <div class="d-flex flex-warp bg-white pt-3">
       <div class="icon-item mb-3">
         <i class="sprite sprite-news"></i>
@@ -62,10 +62,24 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 @import "../_variable.scss";
 .nav-icons {
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
 }
+
+.icon-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  border-left: 1px solid $border-color;
+  &:nth-child(4n + 1) {
+    border-left: none;
+  }
+}
+
+
 </style>

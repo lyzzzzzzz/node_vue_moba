@@ -9,8 +9,8 @@
       <button class="bg-primary btn">立即下载</button>
     </div>
     <div class="bg-primary text-white pt-3 pb-2">
-      <div class="fs-md nav d-flex jc-around">
-        <div class="nav-item active">
+      <div class="fs-md nav jc-around">
+        <div class="nav-item reverse-active">
           <router-link tag="div" to="/">首页</router-link>
         </div>
         <div class="nav-item">

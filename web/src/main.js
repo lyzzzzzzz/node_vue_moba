@@ -4,6 +4,7 @@ import 'normalize.css/normalize.css'
 import './style.scss'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import "./assets/iconfont/iconfont.css"
 
 // import style
 import 'swiper/css/swiper.css'

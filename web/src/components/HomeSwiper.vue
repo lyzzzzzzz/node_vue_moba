@@ -42,5 +42,17 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scope>
+@import "../_variable.scss";
+.home-pagination {
+  .swiper-pagination-bullet {
+    background-color: #fff;
+    border-radius: 2px;
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      background-color: map-get($colors, "blue");
+    }
+  }
+}
+
 </style>

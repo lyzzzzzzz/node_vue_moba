@@ -121,14 +121,22 @@ a {
 
 //nav
 .nav{
+  display: flex;
   .nav-item{
     border-bottom: 0.230rem solid transparent;
     padding-bottom: 0.2rem;
     &.active{
-      border-bottom: 0.230rem solid #fff;
+      color: map-get($colors ,'primary');
+      border-bottom-color: map-get($colors ,'primary');
+    }
+    &.reverse-active{
+      color: map-get($colors ,'white');
+      border-bottom-color: map-get($colors ,'white');
     }
   }
-
+  &.nav-border-top{
+    border-top:1px solid $border-color;
+  }
 }
 
  //width  height
