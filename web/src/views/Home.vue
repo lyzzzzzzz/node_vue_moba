@@ -25,14 +25,16 @@
       </template>
       <template #item="{category}">
        <div class="d-flex flex-warp" style="margin:0 -0.5rem">
-          <div
+          <router-link
           class="p-2 fs-sm d-flex flex-column hero-item jc-center ai-center "
           v-for="(info,m) in category.list"
           :key="m"
+          tag='div'
+          :to="`/heroes/${info._id}`"
         >
           <img :src="info.avatar" class="w-100">
           <span class="flex-1 px-2 text-ellipsis">{{info.name}}</span>
-        </div>
+        </router-link>
        </div>
       </template>
     </list-card>

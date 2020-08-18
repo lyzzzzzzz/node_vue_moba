@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import Home from '../views/Home.vue'
-import Articles from '../views/Articles.vue'
+import Article from '../views/Article.vue'
+import Hero from '../views/Hero.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -17,11 +18,17 @@ const routes = [
       },
       {
         path: '/articles/:id',
-        name: 'articles',
-        component: Articles,
-        props:true
+        name: 'article',
+        component: Article,
+        props: true
       }
     ]
+  },
+  {
+    path: '/heroes/:id',
+    name: 'hero',
+    component: Hero,
+    props: true
   },
   {
     path: '/about',

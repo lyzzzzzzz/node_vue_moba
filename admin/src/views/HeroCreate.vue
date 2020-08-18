@@ -2,7 +2,7 @@
   <div>
     <h1>{{id?'修改':'新建'}}英雄</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-tabs type="border-card" value="skills">
+      <el-tabs type="border-card" value="basic">
         <el-tab-pane label="基础信息" name="basic">
           <el-form-item label="名称">
             <el-input v-model="model.name"></el-input>
@@ -24,6 +24,25 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
+
+          <el-form-item label="背景">
+            <el-upload
+              class="avatar-uploader"
+              :action="uploadUrl"
+              :show-file-list="false"
+              :on-success="handleBgImgSuccess"
+              :headers="getAuthHeader()"
+            >
+              <img
+                v-if="model.bgImg"
+                :src="model.bgImg"
+                class="avatar"
+                style="height:auto;width:200px"
+              />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+
           <el-form-item label="称号">
             <el-input v-model="model.title"></el-input>
           </el-form-item>
@@ -111,6 +130,12 @@
               <el-form-item label="名称">
                 <el-input v-model="item.name"></el-input>
               </el-form-item>
+              <el-form-item label="冷却值">
+                <el-input v-model="item.delay"></el-input>
+              </el-form-item>
+              <el-form-item label="消耗">
+                <el-input v-model="item.cost"></el-input>
+              </el-form-item>
               <el-form-item label="描述">
                 <el-input v-model="item.description" type="textarea"></el-input>
               </el-form-item>
@@ -119,6 +144,39 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="danger" size="small" @click="model.skills.splice(index,1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="英雄关系" name="partners">
+          <el-button @click="model.partners.push({})" size="small">
+            <i class="el-icon-plus"></i> 添加英雄
+          </el-button>
+          <el-row type="flex" style="flex-wrap:wrap">
+            <el-col :md="12" v-for="(item,index) in model.partners" :key="index">
+              <el-form-item label="名称">
+                <el-select
+                  v-model="item.hero"
+                  placeholder="请选择"
+                  :popper-append-to-body="false"
+                  filterable
+                >
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :label="hero.name"
+                    :value="hero._id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="描述">
+                <el-input v-model="item.description" type="textarea"></el-input>
+              </el-form-item>
+
+              <el-form-item>
+                <el-button type="danger" size="small" @click="model.partners.splice(index,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -138,7 +196,9 @@ export default {
   props: ["id"],
   data() {
     return {
+      heroes: [],
       model: {
+        bgImg: "",
         avatar: "",
         name: "",
         scores: {
@@ -163,11 +223,16 @@ export default {
     this.id && this.getHeroById();
     this.getCategories();
     this.getItems();
+    this.getHeros();
   },
   methods: {
     async getItems() {
       const res = await this.$http.get("/rest/items");
       this.items = res.data;
+    },
+    async getHeros() {
+      const res = await this.$http.get("/rest/heroes");
+      this.heroes = res.data;
     },
     async getCategories() {
       const res = await this.$http.get("/rest/categories");
@@ -175,6 +240,9 @@ export default {
     },
     handleAvatarSuccess(res) {
       this.model.avatar = res.url;
+    },
+    handleBgImgSuccess(res) {
+      this.model.bgImg = res.url;
     },
     async getHeroById() {
       //当前英雄
