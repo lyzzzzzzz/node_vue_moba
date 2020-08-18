@@ -11,8 +11,8 @@
           :key="m"
         >
           <span class="text-block">{{info.categoryName}}</span>
-          <span class="flex-1 px-2">{{info.title}}</span>
-          <span>{{info.createdAt}}</span>
+          <span class="flex-1 px-2 text-ellipsis">{{info.title}}</span>
+          <span class="text-grey">{{info.createdAt|date}}</span>
         </div>
       </template>
     </list-card>
@@ -23,11 +23,17 @@
 import HomeIcons from "../components/HomeIcons";
 import HomeSwiper from "../components/HomeSwiper";
 import ListCard from "../components/ListCard";
+import dayjs from 'dayjs';
 export default {
   components: {
     HomeIcons,
     HomeSwiper,
     ListCard,
+  },
+  filters: {
+    date(val){
+      return dayjs(val).format('MM/DD')
+    }
   },
   data() {
     return {
