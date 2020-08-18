@@ -5,19 +5,24 @@
 
     <list-card icon="cc-menu-circle" title="新闻资讯" :categories="newCategories">
       <template #item="{category}">
-        <div
+        <router-link
           class="py-2 fs-sm d-flex jc-between ai-center"
           v-for="(info,m) in category.list"
           :key="m"
+          tag="div"
+          :to="`/articles/${info._id}`"
         >
           <span class="text-block">{{info.categoryName}}</span>
           <span class="flex-1 px-2 text-ellipsis">{{info.title}}</span>
           <span class="text-grey">{{info.createdAt|date}}</span>
-        </div>
+        </router-link>
       </template>
     </list-card>
 
     <list-card icon="Hero" title="英雄列表" :categories="heroCategories">
+      <template  #topContent>
+         <img src="../assets/910041372175223.jpg" class="w-100 mb-2">
+      </template>
       <template #item="{category}">
        <div class="d-flex flex-warp" style="margin:0 -0.5rem">
           <div
@@ -25,10 +30,8 @@
           v-for="(info,m) in category.list"
           :key="m"
         >
-          <!-- <span class="text-block">{{info.categoryName}}</span> -->
           <img :src="info.avatar" class="w-100">
           <span class="flex-1 px-2 text-ellipsis">{{info.name}}</span>
-          <!-- <span class="text-grey">{{info.createdAt|date}}</span> -->
         </div>
        </div>
       </template>

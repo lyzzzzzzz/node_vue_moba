@@ -21,6 +21,9 @@ a {
   color: #999;
 }
 
+p{
+  line-height: 1.7em;
+}
 
 @each $colorKey,$color in $colors {
   .text-#{$colorKey} {
@@ -152,6 +155,15 @@ a {
  .h-100{
    height: 100%;
  }
+
+
+//border
+@each $var in (top,bottom,left,right) {
+  .border-#{$var}{
+    border-#{$var}:1px solid $border-color;
+  }
+}
+
 
  //sprite
  .sprite{

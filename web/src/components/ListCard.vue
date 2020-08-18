@@ -1,5 +1,6 @@
 <template>
   <my-card :icon="icon" :title="title">
+    <slot name="topContent"></slot>
     <div class="fs-md nav jc-between nav-border-top py-3">
       <div
         class="nav-item"
