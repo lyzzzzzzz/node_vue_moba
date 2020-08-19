@@ -1,6 +1,6 @@
 <template>
-  <div class="card px-3 bg-white mt-3 w-100">
-    <div class="card-header d-flex jc-between ai-center py-3">
+  <div class="card px-3 bg-white w-100">
+    <div class="card-header d-flex jc-between ai-center py-3 w-100">
       <span class="iconfont" :class="`icon-${icon}`"></span>
       <span class="flex-1 px-2 fs-xl">{{title}}</span>
       <span class="iconfont icon-more"></span>

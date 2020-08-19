@@ -38,7 +38,7 @@ module.exports = app => {
   })
 
 
-//新闻列表
+  //新闻列表
   router.get('/news/list', async (req, res) => {
     const parent = await Category.findOne({
       name: "新闻资讯"
@@ -80,7 +80,7 @@ module.exports = app => {
     res.send(cats)
   })
 
-//录入英雄数据
+  //录入英雄数据
   router.get('/heroes/init', async (req, res) => {
     await Hero.deleteMany({})
     const rawData = [
@@ -171,19 +171,19 @@ module.exports = app => {
   })
 
 
- //文章详情
-  router.get('/articles/:id',async (req,res)=>{
-    const data=await Article.findById(req.params.id).lean()
-    data.related=await Article.find().where({
-      categories:{$in:data.categories}
+  //文章详情
+  router.get('/articles/:id', async (req, res) => {
+    const data = await Article.findById(req.params.id).lean()
+    data.related = await Article.find().where({
+      categories: { $in: data.categories }
     }).limit(2)
     res.send(data)
   })
 
 
   //英雄详情
-  router.get('/heroes/:id',async (req,res)=>{
-    const data=await Hero.findById(req.params.id).lean()
+  router.get('/heroes/:id', async (req, res) => {
+    const data = await await Hero.findById(req.params.id).populate('categories').lean()
     res.send(data)
   })
 

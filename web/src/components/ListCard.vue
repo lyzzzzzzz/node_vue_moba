@@ -1,7 +1,7 @@
 <template>
-  <my-card :icon="icon" :title="title">
+  <my-card :icon="icon" :title="title" >
     <slot name="topContent"></slot>
-    <div class="fs-md nav jc-between nav-border-top py-3">
+    <div class="fs-md nav jc-between py-3 nav-border-top">
       <div
         class="nav-item"
         :class="{active:active===index}"
@@ -15,7 +15,7 @@
       ref="list"
       @slide-change="()=>active=$refs.list.$swiper.realIndex"
     >
-      <swiper-slide v-for="(category,index) in categories" :key="index">
+      <swiper-slide class="pl-1" v-for="(category,index) in categories" :key="index">
         <slot name="item" :category="category"></slot>
       </swiper-slide>
     </swiper>
@@ -26,12 +26,12 @@
 import MyCard from "./MyCard";
 export default {
   components: {
-    MyCard,
+    MyCard
   },
   props: {
     title: { type: String },
     icon: { type: String },
-    categories: { type: Array },
+    categories: { type: Array }
   },
   data() {
     return {

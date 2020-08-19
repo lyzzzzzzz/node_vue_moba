@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6019885",
+      "name": "picture",
+      "font_class": "tupian",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "11608927",
+      "name": "vedio",
+      "font_class": "shipin",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
       "icon_id": "13089891",
       "name": "Icon - Keyboard Arrow - Down - Rounded",
       "font_class": "arrow-right",

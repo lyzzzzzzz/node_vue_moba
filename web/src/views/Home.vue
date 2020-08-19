@@ -3,39 +3,39 @@
     <home-swiper></home-swiper>
     <home-icons></home-icons>
 
-    <list-card icon="cc-menu-circle" title="新闻资讯" :categories="newCategories">
+    <list-card class="mt-3" icon="cc-menu-circle" title="新闻资讯" :categories="newCategories">
       <template #item="{category}">
         <router-link
-          class="py-2 fs-sm d-flex jc-between ai-center"
+          class="py-2 fs-sm d-flex jc-between ai-center test"
           v-for="(info,m) in category.list"
           :key="m"
           tag="div"
           :to="`/articles/${info._id}`"
         >
-          <span class="text-block">{{info.categoryName}}</span>
-          <span class="flex-1 px-2 text-ellipsis">{{info.title}}</span>
-          <span class="text-grey">{{info.createdAt|date}}</span>
+          <div class="text-block">{{info.categoryName}}</div>
+          <div class="flex-1 px-2 text-ellipsis">{{info.title}}</div>
+          <div class="text-grey">{{info.createdAt|date}}</div>
         </router-link>
       </template>
     </list-card>
 
-    <list-card icon="Hero" title="英雄列表" :categories="heroCategories">
-      <template  #topContent>
-         <img src="../assets/910041372175223.jpg" class="w-100 mb-2">
+    <list-card class="mt-3" icon="Hero" title="英雄列表" :categories="heroCategories">
+      <template #topContent>
+        <img src="../assets/910041372175223.jpg" class="w-100 mb-2" />
       </template>
       <template #item="{category}">
-       <div class="d-flex flex-warp" style="margin:0 -0.5rem">
+        <div class="d-flex flex-warp" style="margin:0 -0.5rem">
           <router-link
-          class="p-2 fs-sm d-flex flex-column hero-item jc-center ai-center "
-          v-for="(info,m) in category.list"
-          :key="m"
-          tag='div'
-          :to="`/heroes/${info._id}`"
-        >
-          <img :src="info.avatar" class="w-100">
-          <span class="flex-1 px-2 text-ellipsis">{{info.name}}</span>
-        </router-link>
-       </div>
+            class="p-2 fs-sm d-flex flex-column hero-item jc-center ai-center"
+            v-for="(info,m) in category.list"
+            :key="m"
+            tag="div"
+            :to="`/heroes/${info._id}`"
+          >
+            <img :src="info.avatar" class="w-100" />
+            <span class="flex-1 px-2 text-ellipsis">{{info.name}}</span>
+          </router-link>
+        </div>
       </template>
     </list-card>
   </div>
@@ -65,7 +65,7 @@ export default {
   },
   created() {
     this.getNewCategories();
-     this.getHeroCategories();
+    this.getHeroCategories();
   },
   methods: {
     async getNewCategories() {
@@ -82,15 +82,15 @@ export default {
 
 <style lang="scss">
 @import "../_variable.scss";
-.text-block {
-  display: inlink-block;
-  color: map-get($colors, "yellow");
-  border: 1px solid map-get($colors, "yellow");
-  border-radius: 3px;
-  padding: 2px;
+.home {
+  .text-block {
+    color: map-get($colors, "yellow");
+    border: 1px solid map-get($colors, "yellow");
+    border-radius: 3px;
+    padding: 1px;
+  }
+  .hero-item {
+    width: 20%;
+  }
 }
-.hero-item{
-  width:20%
-}
-
 </style>

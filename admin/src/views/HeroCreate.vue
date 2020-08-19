@@ -243,6 +243,7 @@ export default {
     },
     handleBgImgSuccess(res) {
       this.model.bgImg = res.url;
+      console.log( res.url);
     },
     async getHeroById() {
       //当前英雄
